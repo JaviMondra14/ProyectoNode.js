@@ -30,17 +30,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/auth', authRoutes);
 app.use('/api/employees', employeeRoutes);
 
-// Health check
 app.get('/api/health', (req, res) => {
     res.json({ status: 'API running', env: process.env.NODE_ENV });
 });
 
 // Servir index.html para todas las rutas no API
-app.get('/', (req, res) => {
+app.get('*', (req, res, next) => {
+    // Ignorar rutas API
+    if (req.path.startsWith('/api')) {
+        return next();
+    }
+
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({
@@ -50,7 +53,6 @@ app.use((err, req, res, next) => {
     });
 });
 
-// 404 handler para API
 app.use('/api', (req, res) => {
     res.status(404).json({
         success: false,

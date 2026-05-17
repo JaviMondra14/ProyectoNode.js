@@ -6,7 +6,6 @@ function init() {
         window.location.href = 'employees.html';
     }
 
-    // Event listener para el form
     document.getElementById('loginForm').addEventListener('submit', login);
 }
 
@@ -22,10 +21,8 @@ function login(e) {
     })
         .then(function (res) {
             if (res.data.success) {
-                // Guardar el token
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('user', JSON.stringify(res.data.user));
-                // Redirigir a employees
                 window.location.href = 'employees.html';
             } else {
                 showError(res.data.message);

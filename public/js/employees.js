@@ -6,7 +6,6 @@ function init() {
         window.location.href = 'index.html';
     }
 
-    // Mostrar nombre del usuario
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
         document.getElementById('userDisplay').textContent = `Bienvenido, ${user.nombre}`;

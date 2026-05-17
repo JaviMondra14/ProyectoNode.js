@@ -6,7 +6,6 @@ function init() {
         window.location.href = 'employees.html';
     }
 
-    // Event listener para el form
     document.getElementById('signinForm').addEventListener('submit', signin);
 }
 

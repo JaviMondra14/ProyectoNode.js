@@ -24,7 +24,6 @@ exports.login = async (req, res) => {
 
         const user = users[0];
 
-        // Comparar contraseña hasheada
         const validPassword = await bcrypt.compare(password, user.password);
 
         if (!validPassword) {
@@ -84,7 +83,6 @@ exports.register = async (req, res) => {
             });
         }
 
-        // Hashear la contraseña
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const result = await pool.query(
