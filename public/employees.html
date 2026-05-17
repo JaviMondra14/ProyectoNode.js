@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Empleados - Gestión</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./js/employees.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Sistema de Empleados</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <span class="nav-link" id="userDisplay"></span>
+                </li>
+                <li class="nav-item center">
+                    <button class="btn btn-outline-light btn-sm" onclick="logout()">Cerrar sesión</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h1>Gestión de Empleados</h1>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar por nombre..." />
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" onclick="searchEmployees()">Buscar</button>
+                        <button class="btn btn-secondary" type="button" onclick="getAllEmployees()">Limpiar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-success mb-3" data-toggle="modal" data-target="#employeeModal" onclick="openAddModal()">
+            + Agregar Empleado
+        </button>
+
+        <div id="successAlert" class="alert alert-success alert-dismissible fade" role="alert" style="display:none;">
+            <span id="successMessage"></span>
+            <button type="button" class="close" onclick="this.parentElement.style.display='none'">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div id="errorAlert" class="alert alert-danger alert-dismissible fade" role="alert" style="display:none;">
+            <span id="errorMessage"></span>
+            <button type="button" class="close" onclick="this.parentElement.style.display='none'">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped" id="employeesTable">
+                <thead class="table-primary">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Dirección</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="employeesList">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="employeeModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="modalTitle">Agregar Empleado</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="employeeForm">
+                        <input type="hidden" id="employeeId" />
+                        <div class="form-group">
+                            <label for="modalNombre">Nombre *</label>
+                            <input type="text" class="form-control" id="modalNombre" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="modalApellidos">Apellidos *</label>
+                            <input type="text" class="form-control" id="modalApellidos" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="modalTelefono">Teléfono *</label>
+                            <input type="tel" class="form-control" id="modalTelefono" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="modalEmail">Email *</label>
+                            <input type="email" class="form-control" id="modalEmail" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="modalDireccion">Dirección *</label>
+                            <input type="text" class="form-control" id="modalDireccion" required />
+                        </div>
+                        <small class="form-text text-muted">Los campos marcados con * son obligatorios</small>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="saveEmployee()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
