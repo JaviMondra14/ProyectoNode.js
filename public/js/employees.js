@@ -1,4 +1,5 @@
 window.onload = init;
+const API_URL = '/api';
 
 function init() {
     // Si no existe token, redirigir a login

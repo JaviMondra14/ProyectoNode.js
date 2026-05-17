@@ -36,8 +36,14 @@ app.get('/api/health', (req, res) => {
 
 // Servir index.html para todas las rutas no API
 app.get('*', (req, res, next) => {
-    // Ignorar rutas API
+
+    // Ignorar API
     if (req.path.startsWith('/api')) {
+        return next();
+    }
+
+    // Ignorar archivos estáticos
+    if (req.path.includes('.')) {
         return next();
     }
 
