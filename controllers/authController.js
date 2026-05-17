@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const pool = require('../config/database');
 
 exports.login = async (req, res) => {
@@ -23,7 +24,10 @@ exports.login = async (req, res) => {
 
         const user = users[0];
 
-        if (user.password !== password) {
+        // Comparar contraseña hasheada
+        const validPassword = await bcrypt.compare(password, user.password);
+
+        if (!validPassword) {
             return res.status(401).json({
                 success: false,
                 message: 'Correo electrónico o contraseña inválidos'
@@ -80,9 +84,12 @@ exports.register = async (req, res) => {
             });
         }
 
+        // Hashear la contraseña
+        const hashedPassword = await bcrypt.hash(password, 10);
+
         const result = await pool.query(
             'INSERT INTO usuarios (nombre, email, password) VALUES (?, ?, ?)',
-            [nombre, email, password]
+            [nombre, email, hashedPassword]
         );
 
         res.status(201).json({

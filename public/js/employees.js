@@ -1,7 +1,5 @@
 window.onload = init;
 
-const API_URL = 'http://localhost:3000/api';
-
 function init() {
     // Si no existe token, redirigir a login
     if (!localStorage.getItem('token')) {

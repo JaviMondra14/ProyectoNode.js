@@ -16,7 +16,7 @@ function login(e) {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    axios.post('http://localhost:3000/api/auth/login', {
+    axios.post(API_URL + '/auth/login', {
         email: email,
         password: password
     })

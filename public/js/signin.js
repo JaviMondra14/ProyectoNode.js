@@ -24,7 +24,7 @@ function signin(e) {
         return;
     }
 
-    axios.post('http://localhost:3000/api/auth/register', {
+    axios.post(API_URL + '/auth/register', {
         nombre: nombre,
         email: email,
         password: password
