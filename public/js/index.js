@@ -30,7 +30,7 @@ function login(e) {
         })
         .catch(function (err) {
             console.error(err);
-            showError('Error en la conexión. Verifica que el servidor esté ejecutándose.');
+            showError('Correo electrónico o contraseña inválidos');
         });
 }
 
