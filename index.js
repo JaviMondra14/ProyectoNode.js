@@ -9,12 +9,10 @@ const employeeRoutes = require('./routes/employees');
 
 const app = express();
 
-// CORS configurado para producción
+// CORS configurado para desarrollo y producción
 const corsOptions = {
-    origin: process.env.NODE_ENV === 'production' 
-        ? process.env.FRONTEND_URL || '*'
-        : ['http://localhost:3000', 'http://localhost:5173'],
-    credentials: true,
+    origin: '*',
+    credentials: false,
     optionsSuccessStatus: 200
 };
 
@@ -36,14 +34,8 @@ app.get('/api/health', (req, res) => {
 
 // Servir index.html para todas las rutas no API
 app.get('*', (req, res, next) => {
-
-    // Ignorar API
+    // Ignorar rutas API
     if (req.path.startsWith('/api')) {
-        return next();
-    }
-
-    // Ignorar archivos estáticos
-    if (req.path.includes('.')) {
         return next();
     }
 

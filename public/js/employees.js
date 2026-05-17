@@ -1,5 +1,4 @@
 window.onload = init;
-const API_URL = '/api';
 
 function init() {
     // Si no existe token, redirigir a login
@@ -24,7 +23,7 @@ function getHeaders() {
 }
 
 function getAllEmployees() {
-    axios.get(API_URL + '/employees', getHeaders())
+    axios.get('/api/employees', getHeaders())
         .then(function (res) {
             if (res.data.success) {
                 displayEmployees(res.data.data);
@@ -46,7 +45,7 @@ function searchEmployees() {
         return;
     }
 
-    axios.get(API_URL + '/employees/search?nombre=' + searchTerm, getHeaders())
+    axios.get('/api/employees/search?nombre=' + searchTerm, getHeaders())
         .then(function (res) {
             if (res.data.success) {
                 displayEmployees(res.data.data);
@@ -133,7 +132,7 @@ function saveEmployee() {
 
     if (id) {
         // Actualizar empleado
-        axios.put(API_URL + '/employees/' + id, data, getHeaders())
+        axios.put('/api/employees/' + id, data, getHeaders())
             .then(function (res) {
                 if (res.data.success) {
                     $('#employeeModal').modal('hide');
@@ -149,7 +148,7 @@ function saveEmployee() {
             });
     } else {
         // Crear nuevo empleado
-        axios.post(API_URL + '/employees', data, getHeaders())
+        axios.post('/api/employees', data, getHeaders())
             .then(function (res) {
                 if (res.data.success) {
                     $('#employeeModal').modal('hide');
@@ -171,7 +170,7 @@ function deleteEmployee(id) {
         return;
     }
 
-    axios.delete(API_URL + '/employees/' + id, getHeaders())
+    axios.delete('/api/employees/' + id, getHeaders())
         .then(function (res) {
             if (res.data.success) {
                 getAllEmployees();

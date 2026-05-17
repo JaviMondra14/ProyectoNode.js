@@ -1,5 +1,4 @@
 window.onload = init;
-const API_URL = '/api';
 
 function init() {
     // Si ya existe token, redirigir a employees
@@ -24,7 +23,7 @@ function signin(e) {
         return;
     }
 
-    axios.post(API_URL + '/auth/register', {
+    axios.post('/api/auth/register', {
         nombre: nombre,
         email: email,
         password: password

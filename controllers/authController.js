@@ -24,7 +24,16 @@ exports.login = async (req, res) => {
 
         const user = users[0];
 
-        const validPassword = await bcrypt.compare(password, user.password);
+        // Soportar contraseñas en texto plano (legado) y hasheadas (bcrypt)
+        let validPassword = false;
+        
+        // Primero intentar bcrypt (para contraseñas hasheadas)
+        try {
+            validPassword = await bcrypt.compare(password, user.password);
+        } catch (err) {
+            // Si bcrypt falla, comparar directamente (compatibilidad con texto plano)
+            validPassword = (password === user.password);
+        }
 
         if (!validPassword) {
             return res.status(401).json({

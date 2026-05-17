@@ -1,5 +1,4 @@
 window.onload = init;
-const API_URL = '/api';
 
 function init() {
     // Si ya existe token, redirigir a employees
@@ -16,7 +15,7 @@ function login(e) {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    axios.post(API_URL + '/auth/login', {
+    axios.post('/api/auth/login', {
         email: email,
         password: password
     })
